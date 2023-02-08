@@ -1,1 +1,2 @@
-# SamanthaCBajis.github.io
+# JavaScript TileMap Generator
+An HTML tilemap game/generator. Here is the [GitHub Page](https://samanthacbajis.github.io/index.html). To refresh see the other tilemaps, either refresh the page or click on the "Tilemap Generator!" header at the top. 
