@@ -1,2 +1,2 @@
 # JavaScript TileMap Generator
-An HTML tilemap game/generator. Here is the [GitHub Page](https://samanthacbajis.github.io/index.html). To refresh see the other tilemaps, either refresh the page or click on the "Tilemap Generator!" header at the top. 
+An HTML tilemap game/generator. Here is the [GitHub Page](https://samanthacbajis.github.io/index.html). Refresh see the other tilemaps; you may have to click twice or more as the maps randomly generate. To do so either refresh the page or click on the "Tilemap Generator!" header at the top. 
