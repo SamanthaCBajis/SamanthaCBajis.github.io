@@ -1,3 +1,4 @@
+//tilemap and function that runs through array to select object(map) to randomly display
 var map = [
     { 
         cols: 8,
@@ -69,40 +70,6 @@ for ( let i in map) {
     }
         tileArray[i] = map[index];
 }
-    //console.log(array2[0])
-    //console.log(array2[0].tiles)
 function newMap(col, row) {
     return tileArray[0].tiles[row * tileArray[0].cols + col];
 }
-//console.log(newMap())
-    Game.render = function () {
-        for (let c = 0; c < tileArray[0].cols; c++) {
-            for (let r = 0; r < tileArray[0].rows; r++) {
-                let singleTile = newMap(c, r);
-                //console.log(tile)
-                if (singleTile != 0) { // 0 => empty tile
-                    this.ctx.drawImage(
-                        this.tileAtlas, // image
-                        (singleTile - 1) * tileArray[0].tsize, // source x
-                        0, // source y
-                        tileArray[0].tsize, // source width
-                        tileArray[0].tsize, // source height
-                        c * tileArray[0].tsize,  // target x
-                        r * tileArray[0].tsize, // target y
-                        tileArray[0].tsize, // target width
-                        tileArray[0].tsize // target height
-                    );
-                }
-            }
-        }
-    }
-
-Game.load = function () {
-    return [
-        Loader.loadImage('tiles', '../assets/tiles.png')
-    ];
-};
-
-Game.init = function () {
-    this.tileAtlas = Loader.getImage('tiles');
-};

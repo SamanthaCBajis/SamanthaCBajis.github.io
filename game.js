@@ -1,7 +1,13 @@
-let Game = {};
+// loading of images and rendering if game
+let gameObject = {};
 
-Game.run = function (context) {
-    this.ctx = context;
+// functions that create game
+gameObject.init = function () {};
+gameObject.render = function () {};
+
+// game will run/load when promises are fulfilled
+gameObject.run = function (context) {
+    this.context = context;
 
     let p = this.load();
     Promise.all(p).then(function () {
@@ -10,28 +16,43 @@ Game.run = function (context) {
     }.bind(this));
 };
 
-// override these methods to create the demo
-Game.init = function () {};
-Game.render = function () {};
-
-//
-// start up function
-//
+gameObject.render = function () {
+    for (let c = 0; c < tileArray[0].cols; c++) {
+        for (let r = 0; r < tileArray[0].rows; r++) {
+            let singleTile = newMap(c, r);
+            // if the tile is empty
+            if (singleTile != 0) { 
+                this.context.drawImage(
+                    this.tileAtlas,
+                    // takes into account tiles width and height
+                    (singleTile - 1) * tileArray[0].tsize,
+                    0,
+                    tileArray[0].tsize,
+                    tileArray[0].tsize,
+                    c * tileArray[0].tsize,
+                    r * tileArray[0].tsize,
+                    tileArray[0].tsize,
+                    tileArray[0].tsize
+                );
+            }
+        }
+    }
+} // renders the gameObject, aka the tilemap
 
 window.onload = function () {
     let context = document.getElementById('tileMapGame').getContext('2d');
-    Game.run(context);
-};
+    gameObject.run(context);
+}; //function to start
 
 
-let Loader = {
+let imageLoader = {
     images: {}
 };
 
-Loader.loadImage = function (key, src) {
+imageLoader.loadImage = function (key, src) {
     let img = new Image();
 
-    let d = new Promise(function (resolve) {
+    let pr = new Promise(function (resolve) {
         img.onload = function () {
             this.images[key] = img;
             resolve(img);
@@ -39,9 +60,19 @@ Loader.loadImage = function (key, src) {
     }.bind(this));
 
     img.src = src;
-    return d;
+    return pr;
 };
 
-Loader.getImage = function (key) {
+imageLoader.getImage = function (key) {
     return (key in this.images) ? this.images[key] : null;
+};
+
+gameObject.load = function () {
+    return [
+        imageLoader.loadImage('tiles', '/assets/tiles.png')
+    ];
+};
+
+gameObject.init = function () {
+    this.tileAtlas = imageLoader.getImage('tiles');
 };
